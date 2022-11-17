@@ -16,3 +16,12 @@ p {
 .post p {
     white-space: pre-wrap;
 }
+.row {
+  display: flex;
+  flex-flow:row;
+  border: solid, 1px, grey ;
+}
+.column{
+  display: flex;
+  flex-flow: column;
+}
