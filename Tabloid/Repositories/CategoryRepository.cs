@@ -18,7 +18,8 @@ namespace Tabloid.Repositories
                 {
                     cmd.CommandText = @"
                         SELECT Id, Name 
-                        FROM Category";
+                        FROM Category
+                        ORDER BY NAME";
 
                     var reader = cmd.ExecuteReader();
 
