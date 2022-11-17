@@ -29,7 +29,7 @@ const CategoryForm = () => {
             onChange={(event) => setName(event.target.value)}
           />
           <button className={'CatFormButton'} onClick={saveNewCat}>
-            Submit
+            Save
           </button>
         </article>
       </section>

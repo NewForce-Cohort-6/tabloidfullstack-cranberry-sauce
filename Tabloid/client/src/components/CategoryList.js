@@ -25,8 +25,8 @@ const CategoryList = () => {
       <div className="container">
         <div className="row justify-content-center">
           <div className="card-column">
-          <a href='/category/add'>
-          Create a new Category
+          <a className="row justify-content-center" href='/category/add'>
+          Create Category
           </a>
           
             <Table>
