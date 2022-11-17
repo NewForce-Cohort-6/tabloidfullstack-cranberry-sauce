@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { getAllCats } from '../Managers/CategoryManager'
 import Category from './Category'
-
+import { Table } from 'reactstrap'
+import { Navigate } from 'react-router-dom'
 
 const CategoryList = () => {
- // initial state of state?
+  // initial state of state?
   const [category, setCategory] = useState([])
 
   // setting state
@@ -12,7 +13,7 @@ const CategoryList = () => {
     getAllCats().then((allCats) => setCategory(allCats))
   }
 
-  // calling state 
+  // calling state
   useEffect(() => {
     getCategories()
   }, [])
@@ -23,21 +24,26 @@ const CategoryList = () => {
     <>
       <div className="container">
         <div className="row justify-content-center">
-            <div className="card-column">
-
-          {category.map((cat) => (
-              <tr>
-                <td >
+          <div className="card-column">
+          <a href='/category/add'>
+          Create a new Category
+          </a>
+          
+            <Table>
+              <thead className="row justify-content-center">
+                Category Name
+                </thead>
+                {category.map((cat) => (
                   <Category key={cat.id} cat={cat} />
-                </td>
-                  </tr>
-              ))}
-              </div>
+                  ))}
+            </Table>
+
+          </div>
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
 //exporting CategoryList to be used elsewhere
-export default CategoryList;
+export default CategoryList

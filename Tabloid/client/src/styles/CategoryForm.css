@@ -1,0 +1,44 @@
+.CatFormArticle{
+    margin-left: 41.5vw;
+    margin-top: 2vw;
+}
+
+.CatFormInput{
+
+ /* remove default behavior */
+ appearance:none;
+ -webkit-appearance:none;
+ /* remove default behavior */
+
+
+width:250px;
+margin: 3px;
+padding:4px;
+font-weight:600;
+border-style: ridge;
+border-radius:10px;
+font-family:inherit;
+font-size: inherit;
+box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+display:block;
+text-align: center;
+}
+
+.CatFormButton{
+ 
+    /* remove default behavior */
+    appearance:none;
+    -webkit-appearance:none;
+     /* remove default behavior */
+
+    display:block;
+    width:250px;
+    border:none;
+    margin: 3px;
+    padding: 6px;
+    font-weight:600;
+    border-radius:10px;
+    font-family:inherit;
+    font-size: inherit;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+}
