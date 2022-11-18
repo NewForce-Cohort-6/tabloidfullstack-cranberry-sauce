@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import {getAllTags} from "../Managers/TagManager.js";
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import {getAllTags, deleteTag} from "../Managers/TagManager.js";
 import { AddTagForm } from "./AddTag.js";   
 
 const TagList = () =>{
@@ -11,13 +12,16 @@ const TagList = () =>{
 
     useEffect(()=>{
         gettingTags();
-    },[tags])
+    },[])
     
     return(
         <>
-        <AddTagForm />
+        <AddTagForm setTags={setTags}/>
         <div className="container" >
-            {tags.map(t => <div className ="row"><div className = "column"> {t.name} </div></div>)}
+            {tags.map((t) => {
+            return <div className ="row"><div className = "column"> {t.name} <div className = "column">
+                <Button onClick={() => deleteTag(t.id)}>Delete</Button>
+                </div></div></div>})}
         </div>
         </>
     );

@@ -15,3 +15,9 @@ export const getAllTags = ()=>{
     })
     .then((r)=> r.json())
  };
+//https://localhost:5001/api/Tag/8
+ export const deleteTag = (id)=>{
+    return fetch (`${apiUrl}/api/Tag/${id}`,{
+        method:"DELETE"       
+    }).then(()=>{getAllTags()})
+ };
