@@ -33,6 +33,7 @@ namespace Tabloid
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Tabloid", Version = "v1" });
 
             });
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
 
         }
 
