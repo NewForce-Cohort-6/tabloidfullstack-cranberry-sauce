@@ -26,3 +26,15 @@ export const getAllTags = ()=>{
     return fetch (`${apiUrl}/api/Tag/${id}`)
     .then((r)=> r.json())
  }
+
+ export const editTag = (tag)=>{
+    return fetch (`${apiUrl}/api/Tag/${tag.id}`,{
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(tag)
+    })
+    .then((r)=> r.json())
+    
+ }
