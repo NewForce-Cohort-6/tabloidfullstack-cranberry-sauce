@@ -16,12 +16,15 @@ p {
 .post p {
     white-space: pre-wrap;
 }
-.row {
+.container{
   display: flex;
+}
+.row {
+  
   flex-flow:row;
   border: solid, 1px, grey ;
 }
 .column{
-  display: flex;
+  
   flex-flow: column;
 }

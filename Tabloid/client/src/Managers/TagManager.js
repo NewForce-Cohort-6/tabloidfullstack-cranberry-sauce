@@ -21,3 +21,8 @@ export const getAllTags = ()=>{
         method:"DELETE"       
     }).then(()=>{getAllTags()})
  };
+
+ export const getTagById = (id)=>{
+    return fetch (`${apiUrl}/api/Tag/${id}`)
+    .then((r)=> r.json())
+ }
