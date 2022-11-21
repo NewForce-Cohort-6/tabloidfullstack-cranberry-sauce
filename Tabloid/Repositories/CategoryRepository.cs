@@ -63,9 +63,11 @@ namespace Tabloid.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT Id, Name 
-                        FROM Category
-                        WHERE Id = @id
+                        SELECT c.Id, c.Name, p.Id as PostId, p.CategoryId, p.Title 
+                        FROM Category c
+                        LEFT JOIN Post p
+                        ON c.Id = p.CategoryId
+                        WHERE c.Id = @id
                         ORDER BY NAME";
 
                     DbUtils.AddParameter(cmd, "@Id", id);
@@ -79,9 +81,13 @@ namespace Tabloid.Repositories
                             Id = id,
                             Name = DbUtils.GetString(reader, "Name")
                         };
-                    }
                     reader.Close();
                     return cat;
+                    } else
+                    {
+                        reader.Close();
+                        return null;
+                    }
                 }
             }
         }
