@@ -20,9 +20,9 @@ const CategoryList = () => {
   }, [])
 
   // edit handler. gets the id from the database and then navigates to that url.
-  const editHandler = (id) => {
- getCatById(id).then((event)=>{navigate(`/category/edit/${id}`)})}
-
+  const handleEdit = (id) => {
+    getCatById(id).then((e) => {navigate(`/category/edit/${id}`)})
+}
   //mapping through and returning a list of category names
   //keys are pulling from the same place and set to the id of each category
   return (
@@ -38,6 +38,8 @@ const CategoryList = () => {
                  
                     
                 </td>
+                <button onClick={(event) => {
+                  handleEdit(cat.id)}}>Edit</button>
                   </tr>
               ))}
               </div>
