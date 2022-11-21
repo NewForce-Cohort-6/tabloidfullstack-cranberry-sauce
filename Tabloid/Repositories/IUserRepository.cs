@@ -4,7 +4,7 @@ namespace Tabloid.Repositories
 {
     public interface IUserRepository
     {
-        void Add(UserProfile userProfile);
+        //void Add(UserProfile userProfile);
         UserProfile GetByEmail(string email);
     }
 }
