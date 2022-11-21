@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Tabloid.Models;
 using Tabloid.Repositories;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -38,8 +39,14 @@ namespace Tabloid.Controllers
 
         // PUT api/<CategoryController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, Category category)
         {
+            if (id != category.Id)
+            {
+                return BadRequest();
+            }
+            _categoryRepository.UpdateCat(category);
+            return NoContent();
         }
 
         // DELETE api/<CategoryController>/5
