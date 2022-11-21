@@ -38,8 +38,45 @@ namespace Tabloid.Repositories
                 }
             }
         }
+        public Category GetById(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT c.Id, c.Name, p.Id as PostId, p.CategoryId, p.Title 
+                        FROM Category c
+                        LEFT JOIN Post p
+                        ON c.Id = p.CategoryId
+                        WHERE c.Id = @id
+                        ORDER BY NAME";
 
-        public void UpdateCat (Category category)
+                    DbUtils.AddParameter(cmd, "@Id", id);
+                    var reader = cmd.ExecuteReader();
+
+                    Category cat = null;
+                    if (reader.Read())
+                    {
+                        cat = new Category()
+                        {
+                            Id = id,
+                            Name = DbUtils.GetString(reader, "Name")
+                        };
+                        reader.Close();
+                        return cat;
+                    }
+                    else
+                    {
+                        reader.Close();
+                        return null;
+                    }
+                }
+            }
+
+        }
+        public void UpdateCat(Category category)
         {
             using (var conn = Connection)
             {

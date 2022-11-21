@@ -7,5 +7,6 @@ namespace Tabloid.Repositories
     {
         List<Category> GetAllCats();
         public void UpdateCat(Category category);
+        public Category GetById(int id);
     }
 }
