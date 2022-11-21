@@ -16,11 +16,9 @@ export const getCatById = (id) => {
 
 export const editCat = (category) => {
     return fetch(`${baseUrl}/${category.id}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(category)
-    })
-    .then(getAllCats)
-}
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(category),
+    }).then(getAllCats)}

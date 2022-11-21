@@ -28,7 +28,7 @@ namespace Tabloid.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var cat = _categoryRepository.GetById(id);
+            var cat = _categoryRepository.GetCatById(id);
             if (cat == null)
             {
                 return NotFound();
@@ -36,11 +36,6 @@ namespace Tabloid.Controllers
             return Ok(cat);
         }
 
-        // POST api/<CategoryController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
 
         // PUT api/<CategoryController>/5
         [HttpPut("{id}")]
@@ -53,11 +48,6 @@ namespace Tabloid.Controllers
             _categoryRepository.UpdateCat(category);
             return NoContent();
         }
-
-        // DELETE api/<CategoryController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+      
     }
 }

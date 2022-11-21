@@ -38,7 +38,7 @@ namespace Tabloid.Repositories
                 }
             }
         }
-        public Category GetById(int id)
+        public Category GetCatById(int id)
         {
             using (var conn = Connection)
             {
