@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { Table, Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import { editTag, getAllTags } from "../Managers/TagManager";
 
@@ -20,10 +20,10 @@ export const Tag = ({tag, setTags})=>{
     }
 
 
-return(<><tr> 
-  <td>{tag.name}</td><td><Button onClick={() => {navigate(`/DeleteTag/${tag.id}`)}}>Delete</Button></td>
-  <td><Button onClick={() => {setEdit(true)}}>Edit</Button></td>
-  <td>{edit?
+return(<><tr style={{padding: 5}}> 
+  <td style={{minWidth: 125}}>{tag.name}</td><td><Button size="sm" onClick={() => {navigate(`/DeleteTag/${tag.id}`)}}>Delete</Button></td>
+  <td><Button size="sm" onClick={() => {setEdit(true)}}>Edit</Button></td>
+  {edit?
     <td>
     <Form>
       <fieldset>
@@ -33,11 +33,12 @@ return(<><tr>
             const copyOfState ={...newTag};
             copyOfState.name = e.target.value;
             setNewTag(copyOfState)}} />        
-          <Button className="littleButton" onClick={editTheTag}>Save Tag</Button>
+          <Button size="sm" onClick={editTheTag}>Save</Button> &nbsp; &nbsp;
+          <Button size="sm" onClick={(newTags)=>setEdit(false)}>Cancel</Button>
         </FormGroup>
         </fieldset>
     </Form></td>
-    :""} </td>
+    :""} 
 </tr></>
 )
 }

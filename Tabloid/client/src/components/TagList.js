@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Table } from 'reactstrap';
 import {getAllTags, deleteTag} from "../Managers/TagManager.js";
 import { AddTagForm} from "./AddTag";   
 import {Tag} from "./Tag";
@@ -23,7 +23,7 @@ const TagList = () =>{
         <>
         <AddTagForm setTags={setTags}/>
         <div className="container">
-        <table>
+        <Table striped>
             {tags.map((t) => {
             return (
             <tr> 
@@ -31,7 +31,7 @@ const TagList = () =>{
             </tr> )
                  
             })}
-        </table></div>
+        </Table></div>
         </>
     );
 
