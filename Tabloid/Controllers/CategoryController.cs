@@ -27,7 +27,7 @@ namespace Tabloid.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var cat = _categoryRepository.GetById(id);
+            var cat = _categoryRepository.GetCatById(id);
             if(cat == null)
             {
                 return NotFound();

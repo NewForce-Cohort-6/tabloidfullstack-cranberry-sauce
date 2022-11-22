@@ -7,6 +7,6 @@ namespace Tabloid.Repositories
     {
         List<Category> GetAllCats();
         public void Delete(int id);
-        public Category GetById(int id);
+        public Category GetCatById(int id);
     }
 }

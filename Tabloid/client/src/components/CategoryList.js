@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 const CategoryList = () => {
  // Declaring a new state variable
   const [category, setCategory] = useState([])
+  const [post, setPost] = useState([])
 
  // assigning useNavigate to the variable navigate
   const navigate = useNavigate();
@@ -27,7 +28,8 @@ const CategoryList = () => {
 }
   //mapping through and returning a list of category names
   //keys are pulling from the same place and set to the id of each category
-  return (
+  if (!category.id === post.categoryId){
+    return (
     <>
       <div className="container">
         <div className="row justify-content-center">
@@ -49,6 +51,27 @@ const CategoryList = () => {
       </div>
     </>
   );
+  } else {
+    return (
+      <>
+        <div className="container">
+          <div className="row justify-content-center">
+              <div className="card-column">
+            {/* mapping happens here */}
+            {category.map((cat) => (
+                <tr>
+                  <td >
+                    <Category key={cat.id} cat={cat} />
+                  </td>   
+                    </tr>
+                ))}
+                </div>
+          </div>
+        </div>
+      </>
+    );
+  }
+  
 };
 
 //exporting CategoryList to be used elsewhere
