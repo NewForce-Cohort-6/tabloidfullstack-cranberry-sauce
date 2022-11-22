@@ -35,6 +35,6 @@ export const getAllTags = ()=>{
         },
         body: JSON.stringify(tag)
     })
-    .then((r)=> r.json())
+   
     
  }
