@@ -36,8 +36,8 @@ export default function Header({isLoggedIn, setIsLoggedIn}) {
               <NavLink tag={RRNavLink} to="/TagManagement">Tag Management</NavLink>
             </NavItem>
               </>
-              
             }
+            </Nav>
          
 
           <Nav navbar>
