@@ -38,6 +38,7 @@ export default function Header({isLoggedIn, setIsLoggedIn}) {
               </>
               
             }
+            </Nav>
          
 
           <Nav navbar>
