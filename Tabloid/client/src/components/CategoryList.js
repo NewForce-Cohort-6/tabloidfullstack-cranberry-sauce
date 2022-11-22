@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { getAllCats, getCatById } from '../Managers/CategoryManager'
 import Category from './Category'
+import Button from 'reactstrap/lib/Button';
 
 const CategoryList = () => {
- // initial state of state?
+ // initial state
   const [category, setCategory] = useState([])
 
   // setting state
@@ -38,8 +39,8 @@ const CategoryList = () => {
                  
                     
                 </td>
-                <button onClick={(event) => {
-                  handleEdit(cat.id)}}>Edit</button>
+                <Button style={{appearance: 'none', WebkitAppearance: 'none', width: '250', border: 'solid 1px', margin: '3px', padding: '6px', fontWeight: '600' }} onClick={(event) => {
+                  handleEdit(cat.id)}}>Edit</Button>
                   </tr>
               ))}
               </div>
@@ -49,5 +50,5 @@ const CategoryList = () => {
   );
 };
 
-//exporting CategoryList to be used elsewhere
+
 export default CategoryList;
