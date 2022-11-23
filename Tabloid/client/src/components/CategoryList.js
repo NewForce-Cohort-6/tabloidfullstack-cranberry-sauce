@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { getAllCats, getCatById } from '../Managers/CategoryManager'
 import Category from './Category'
 import { useNavigate } from 'react-router-dom';
-
+import Button from 'reactstrap/lib/Button';
 
 const CategoryList = () => {
  // Declaring a new state variable
@@ -27,26 +27,7 @@ const CategoryList = () => {
 }
   //mapping through and returning a list of category names
   //keys are pulling from the same place and set to the id of each category
-  if (category.posts?.categoryId){
-    return (
-    <>
-      <div className="container">
-        <div className="row justify-content-center">
-            <div className="card-column">
-          {/* mapping happens here */}
-          {category.map((cat) => (
-              <tr>
-                <td >
-                  <Category key={cat.id} cat={cat} />
-                </td>   
-                  </tr>
-              ))}
-              </div>
-        </div>
-      </div>
-    </>
-  );
-  } else {
+
     return (
       <>
         <div className="container">
@@ -58,10 +39,14 @@ const CategoryList = () => {
                   <td >
                     <Category key={cat.id} cat={cat} />
                   </td>   
-                   {/* this is the delete button. It pulls from line 25, handleDelete*/}
-                <button style={{appearance: 'none', WebkitAppearance: 'none', width: '250', border: 'none', margin: '3px', padding: '6px', fontWeight: '600', boxShadow: '0 0 15px 4px rgba(0,0,0,0.06)' }} onClick={(e) => {
-                      handleDelete(cat.id)
-                    }}>Delete</button>
+                 
+                 { (cat.posts < 1)
+              ?   <Button style={{appearance: 'none', WebkitAppearance: 'none', width: '250', border: 'none', margin: '3px', padding: '6px', fontWeight: '600' }} onClick={(e) => {
+                  handleDelete(cat.id)
+                }}>Delete</Button>
+               : <></>
+                 
+              } 
                     </tr>
                 ))}
                 </div>
@@ -70,8 +55,7 @@ const CategoryList = () => {
       </>
     );
   }
-  
-};
+
 
 //exporting CategoryList to be used elsewhere
 export default CategoryList;
