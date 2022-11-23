@@ -2,6 +2,7 @@ import React from "react";
 import { deleteCat, getCatById } from "../Managers/CategoryManager";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Button from 'reactstrap/lib/Button';
 
 const CategoryDelete = () => {
      // Declaring a new state variable
@@ -39,14 +40,14 @@ const CategoryDelete = () => {
             <h5 >Are you sure you want to delete the {cat.name} category?</h5>
             <article style={{marginLeft: '12vw'}}>
 
-            <button style={{appearance: 'none', WebkitAppearance: 'none', width: '250', border: 'none', margin: '3px', padding: '6px', fontWeight: '600', boxShadow: '0 0 15px 4px rgba(0,0,0,0.06)' }} onClick={(event) => {
+            <Button style={{appearance: 'none', WebkitAppearance: 'none', width: '250', border: 'none', margin: '3px', padding: '6px', fontWeight: '600', boxShadow: '0 0 15px 4px rgba(0,0,0,0.06)' }} onClick={(event) => {
               // this is pulling from line 24, handleDelete
               handleDelete()
-            }}>Delete</button>
-            <button style={{appearance: 'none', WebkitAppearance: 'none', width: '250', border: 'none', margin: '3px', padding: '6px', fontWeight: '600', boxShadow: '0 0 15px 4px rgba(0,0,0,0.06)' }} onClick={(event) => {
+            }}>Delete</Button>
+            <Button style={{appearance: 'none', WebkitAppearance: 'none', width: '250', border: 'none', margin: '3px', padding: '6px', fontWeight: '600', boxShadow: '0 0 15px 4px rgba(0,0,0,0.06)' }} onClick={(event) => {
               // this is pulling from line 30, handleCancel
                 handleCancel()
-            }}>Cancel</button>
+            }}>Cancel</Button>
             </article>
             </div>
         </div>
