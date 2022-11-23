@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 const CategoryList = () => {
  // Declaring a new state variable
   const [category, setCategory] = useState([])
-  const [post, setPost] = useState([])
 
  // assigning useNavigate to the variable navigate
   const navigate = useNavigate();
@@ -28,7 +27,7 @@ const CategoryList = () => {
 }
   //mapping through and returning a list of category names
   //keys are pulling from the same place and set to the id of each category
-  if (!category.id === post.categoryId){
+  if (category.posts?.categoryId){
     return (
     <>
       <div className="container">
@@ -40,10 +39,6 @@ const CategoryList = () => {
                 <td >
                   <Category key={cat.id} cat={cat} />
                 </td>   
-                {/* this is the delete button. It pulls from line 25, handleDelete*/}
-                <button style={{appearance: 'none', WebkitAppearance: 'none', width: '250', border: 'none', margin: '3px', padding: '6px', fontWeight: '600', boxShadow: '0 0 15px 4px rgba(0,0,0,0.06)' }} onClick={(e) => {
-                      handleDelete(cat.id)
-                    }}>Delete</button>
                   </tr>
               ))}
               </div>
@@ -63,6 +58,10 @@ const CategoryList = () => {
                   <td >
                     <Category key={cat.id} cat={cat} />
                   </td>   
+                   {/* this is the delete button. It pulls from line 25, handleDelete*/}
+                <button style={{appearance: 'none', WebkitAppearance: 'none', width: '250', border: 'none', margin: '3px', padding: '6px', fontWeight: '600', boxShadow: '0 0 15px 4px rgba(0,0,0,0.06)' }} onClick={(e) => {
+                      handleDelete(cat.id)
+                    }}>Delete</button>
                     </tr>
                 ))}
                 </div>

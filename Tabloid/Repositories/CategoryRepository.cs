@@ -24,7 +24,8 @@ namespace Tabloid.Repositories
                     p.Title, p.Content 
                     FROM Category c 
                     LEFT JOIN Post p 
-                    ON c.id = p.CategoryId ";
+                    ON c.id = p.CategoryId 
+                    ORDER BY c.Name";
                     var reader = cmd.ExecuteReader();
 
                     var category = new List<Category>();
