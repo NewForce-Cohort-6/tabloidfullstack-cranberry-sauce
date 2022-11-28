@@ -179,6 +179,54 @@ namespace Tabloid.Repositories
                 }
             }
         }
+
+        public void AddPost(Post post)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                            INSERT INTO Post (
+                                Title, Content, ImageLocation, CreateDateTime, PublishDateTime,
+                                IsApproved, CategoryId, UserProfileId )
+                            OUTPUT INSERTED.ID
+                            VALUES (
+                                @Title, @Content, @ImageLocation, @CreateDateTime, @PublishDateTime,
+                                @IsApproved, @CategoryId, @UserProfileId )";
+                    cmd.Parameters.AddWithValue("@Title", post.Title);
+                    cmd.Parameters.AddWithValue("@Content", post.Content);
+                    cmd.Parameters.AddWithValue("@ImageLocation", post.ImageLocation);
+                    cmd.Parameters.AddWithValue("@CreateDateTime", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@PublishDateTime", post.PublishDateTime);
+                    cmd.Parameters.AddWithValue("@IsApproved", true);
+                    cmd.Parameters.AddWithValue("@CategoryId", post.CategoryId);
+                    cmd.Parameters.AddWithValue("@UserProfileId", post.UserProfileId);
+
+                    post.Id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
+
+
+        public void DeletePost(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                DELETE FROM Post
+                WHERE Id = @id";
+
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
         public Post NewPostFromReader(SqlDataReader reader)
         {
             return new Post()
@@ -188,7 +236,7 @@ namespace Tabloid.Repositories
                 Content = reader.GetString(reader.GetOrdinal("Content")),
                 //ImageLocation = DbUtils.GetNullableString(reader, "HeaderImage"),
                 CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
-                PublishDateTime = DbUtils.GetNullableDateTime(reader, "PublishDateTime"),
+                //PublishDateTime = DbUtils.GetNullableDateTime(reader, "PublishDateTime"),
                 CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId")),
                 IsApproved = reader.GetBoolean(reader.GetOrdinal("IsApproved")),
                 Category = new Category()
@@ -214,41 +262,15 @@ namespace Tabloid.Repositories
                     }
                 }
             };
-            
-
-
-
-public Post Add(Post post)
-            {
-                using (var conn = Connection)
-                {
-                    conn.Open();
-                    using (var cmd = conn.CreateCommand())
-                    {
-                        cmd.CommandText = @"
-                            INSERT INTO Post (
-                                Title, Content, ImageLocation, CreateDateTime, PublishDateTime,
-                                IsApproved, CategoryId, UserProfileId )
-                            OUTPUT INSERTED.ID
-                            VALUES (
-                                @Title, @Content, @ImageLocation, @CreateDateTime, @PublishDateTime,
-                                @IsApproved, @CategoryId, @UserProfileId )";
-                        cmd.Parameters.AddWithValue("@Title", post.Title);
-                        cmd.Parameters.AddWithValue("@Content", post.Content);
-                        cmd.Parameters.AddWithValue("@ImageLocation", DbUtils.ValueOrDBNull(post.ImageLocation));
-                        cmd.Parameters.AddWithValue("@CreateDateTime", post.CreateDateTime);
-                        cmd.Parameters.AddWithValue("@PublishDateTime", DbUtils.ValueOrDBNull(post.PublishDateTime));
-                        cmd.Parameters.AddWithValue("@IsApproved", post.IsApproved);
-                        cmd.Parameters.AddWithValue("@CategoryId", post.CategoryId);
-                        cmd.Parameters.AddWithValue("@UserProfileId", post.UserProfileId);
-
-                        post.Id = (int)cmd.ExecuteScalar();
-                    }
-                }
-            };
         }
     }
 }
+
+
+
+
+
+
 
 //public void UpdatePost(Post post)
 //{
@@ -277,23 +299,7 @@ public Post Add(Post post)
 //    }
 //}
 
-//public void DeletePost(int id)
-//{
-//    using (var conn = Connection)
-//    {
-//        conn.Open();
-//        using (var cmd = conn.CreateCommand())
-//        {
-//            cmd.CommandText = @"
-//                DELETE FROM Post
-//                WHERE Id = @id";
 
-//            cmd.Parameters.AddWithValue("@id", id);
-
-//            cmd.ExecuteNonQuery();
-//        }
-//    }
-//}
 
 
 //public void AddTagToPost(SqlDataReader reader)
@@ -315,39 +321,5 @@ public Post Add(Post post)
 //}
 
 
-//private Post NewPostFromReader(SqlDataReader reader)
-//{
-//    return new Post()
-//    {
-//        Id = reader.GetInt32(reader.GetOrdinal("Id")),
-//        Title = reader.GetString(reader.GetOrdinal("Title")),
-//        Content = reader.GetString(reader.GetOrdinal("Content")),
-//        ImageLocation = DbUtils.GetNullableString(reader, "HeaderImage"),
-//        CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
-//        PublishDateTime = DbUtils.GetNullableDateTime(reader, "PublishDateTime"),
-//        CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId")),
-//        Category = new Category()
-//        {
-//            Id = reader.GetInt32(reader.GetOrdinal("CategoryId")),
-//            Name = reader.GetString(reader.GetOrdinal("CategoryName"))
-//        },
-//        UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileId")),
-//        UserProfile = new UserProfile()
-//        {
-//            Id = reader.GetInt32(reader.GetOrdinal("UserProfileId")),
-//            FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
-//            LastName = reader.GetString(reader.GetOrdinal("LastName")),
-//            DisplayName = reader.GetString(reader.GetOrdinal("DisplayName")),
-//            Email = reader.GetString(reader.GetOrdinal("Email")),
-//            CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
-//            ImageLocation = DbUtils.GetNullableString(reader, "AvatarImage"),
-//            UserTypeId = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
-//            UserType = new UserType()
-//            {
-//                Id = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
-//                Name = reader.GetString(reader.GetOrdinal("UserTypeName"))
-//            }
-//        }
-//    };
-//}
+
 

@@ -10,7 +10,7 @@ export const PostForm = () => {
     const [newPost, update] = useState({
         Title: "",
         Content: "",
-        Category: ""
+        CategoryId: 0
     })
     /*
          Use the useNavigation() hook so you can redirect
@@ -29,16 +29,19 @@ export const PostForm = () => {
 
    
         const postToSendToAPI = {
-            // userId: tabloidUserObject.id,
-            title: newPost.title,
-            content: newPost.content,
-            category: newPost.category
+            UserId: tabloidUserObject,
+            Title: newPost.Title,
+            Content: newPost.Content,
+            CategoryId: newPost.CategoryId
         }
 
 
 
         //  Perform the fetch() to POST the object to the API
-        return fetch (`/api/Post`, {
+
+
+        // export const addPost = (singlePost) => {
+        return fetch (`https://localhost:5001/api/post/`, {
             method: "POST" ,
             headers: {
                 "Content-Type": "application/json"
@@ -47,7 +50,7 @@ export const PostForm = () => {
         })
         .then(response => response.json())
         .then(() => {
-            navigate("/")
+            navigate("/post")
     })
 }
 
@@ -62,11 +65,11 @@ export const PostForm = () => {
                         type="text"
                         className="form-control"
                         placeholder=""
-                        value={newPost.title}
+                        value={newPost.Title}
                         onChange={
                             (evt) => {
                                 const copy = {...newPost}
-                                copy.title =evt.target.value
+                                copy.Title =evt.target.value
                                 update(copy)
               
     
@@ -84,11 +87,11 @@ export const PostForm = () => {
                         type="text"
                         className="form-control"
                         placeholder=""
-                        value={newPost.content}
+                        value={newPost.Content}
                         onChange={
                             (evt) => {
                                 const copy = {...newPost}
-                                copy.content =evt.target.value
+                                copy.Content =evt.target.value
                                 update(copy)
                             }
                         } />
@@ -103,11 +106,11 @@ export const PostForm = () => {
                         type="text"
                         className="form-control"
                         placeholder=""
-                        value={newPost.category}
+                        value={newPost.CategoryName}
                         onChange={
                             (evt) => {
                                 const copy = {...newPost}
-                                copy.category =evt.target.value
+                                copy.CategoryId =evt.target.value
                                 update(copy)
                             }
                         } />
