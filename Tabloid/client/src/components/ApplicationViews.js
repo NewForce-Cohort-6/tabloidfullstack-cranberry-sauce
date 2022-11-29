@@ -9,6 +9,11 @@ import CategoryList from "./CategoryList";
 
 
 
+
+import Hello from "./Hello";
+import TagList from "./TagList";
+
+
 export default function ApplicationViews() {
 
  return(
@@ -16,6 +21,7 @@ export default function ApplicationViews() {
           <Route path="/" element= {<Hello/>} />
        <Route path="/post" element= {<PostList/>} />
         <Route path="/category" element={<CategoryList />} />
+        <Route path="/TagManagement" element={<TagList />} />
       </Routes>
    );
  
