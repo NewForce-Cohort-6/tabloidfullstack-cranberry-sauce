@@ -10,6 +10,11 @@ import CategoryList from "./CategoryList";
 
 
 
+
+import Hello from "./Hello";
+import TagList from "./TagList";
+
+
 export default function ApplicationViews() {
 
  return(
@@ -18,6 +23,7 @@ export default function ApplicationViews() {
        <Route path="/post" element= {<PostList/>} />
        <Route path="/post/create" element={<PostForm />} />
         <Route path="/category" element={<CategoryList />} />
+        <Route path="/TagManagement" element={<TagList />} />
       </Routes>
    );
  
