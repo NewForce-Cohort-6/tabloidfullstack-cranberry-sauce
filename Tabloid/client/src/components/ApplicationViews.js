@@ -1,16 +1,8 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-
 import { PostList } from "./Posts/PostList";
 import Hello from "./Hello.js"
-
-
 import CategoryList from "./CategoryList";
-
-
-
-
-import Hello from "./Hello";
 import TagList from "./TagList";
 import DeleteTag from "./DeleteTag";
 
