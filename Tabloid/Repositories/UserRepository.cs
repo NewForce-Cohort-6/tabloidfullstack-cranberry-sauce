@@ -2,6 +2,7 @@
 using Tabloid.Models;
 using Tabloid.Utils;
 
+
 namespace Tabloid.Repositories
 {
     public class UserRepository : BaseRepository, IUserRepository
@@ -55,31 +56,31 @@ namespace Tabloid.Repositories
             }
         }
 
-        public void Add(UserProfile userProfile)
-        {
-            using (var conn = Connection)
-            {
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = @"INSERT INTO UserProfile (FirstName, LastName, DisplayName, 
-                                                                 Email, CreateDateTime, ImageLocation, UserTypeId)
-                                        OUTPUT INSERTED.ID
-                                        VALUES (@FirstName, @LastName, @DisplayName, 
-                                                @Email, @CreateDateTime, @ImageLocation, @UserTypeId)";
-                    //DbUtils.AddParameter(cmd, "@FirebaseUserId", userProfile.FirebaseUserId);
-                    DbUtils.AddParameter(cmd, "@FirstName", userProfile.FirstName);
-                    DbUtils.AddParameter(cmd, "@LastName", userProfile.LastName);
-                    DbUtils.AddParameter(cmd, "@DisplayName", userProfile.DisplayName);
-                    DbUtils.AddParameter(cmd, "@Email", userProfile.Email);
-                    DbUtils.AddParameter(cmd, "@CreateDateTime", userProfile.CreateDateTime);
-                    DbUtils.AddParameter(cmd, "@ImageLocation", userProfile.ImageLocation);
-                    DbUtils.AddParameter(cmd, "@UserTypeId", userProfile.UserTypeId);
+        //public void Add(UserProfile userProfile)
+        //{
+        //    using (var conn = Connection)
+        //    {
+        //        conn.Open();
+        //        using (var cmd = conn.CreateCommand())
+        //        {
+        //            cmd.CommandText = @"INSERT INTO UserProfile (FirstName, LastName, DisplayName, 
+        //                                                         Email, CreateDateTime, ImageLocation, UserTypeId)
+        //                                OUTPUT INSERTED.ID
+        //                                VALUES (@FirstName, @LastName, @DisplayName, 
+        //                                        @Email, @CreateDateTime, @ImageLocation, @UserTypeId)";
+        //            //DbUtils.AddParameter(cmd, "@FirebaseUserId", userProfile.FirebaseUserId);
+        //            DbUtils.AddParameter(cmd, "@FirstName", userProfile.FirstName);
+        //            DbUtils.AddParameter(cmd, "@LastName", userProfile.LastName);
+        //            DbUtils.AddParameter(cmd, "@DisplayName", userProfile.DisplayName);
+        //            DbUtils.AddParameter(cmd, "@Email", userProfile.Email);
+        //            DbUtils.AddParameter(cmd, "@CreateDateTime", userProfile.CreateDateTime);
+        //            DbUtils.AddParameter(cmd, "@ImageLocation", userProfile.ImageLocation);
+        //            DbUtils.AddParameter(cmd, "@UserTypeId", userProfile.UserTypeId);
 
-                    userProfile.Id = (int)cmd.ExecuteScalar();
-                }
-            }
-        }
+        //            userProfile.Id = (int)cmd.ExecuteScalar();
+        //        }
+        //    }
+        //}
 
         /*
         public UserProfile GetByFirebaseUserId(string firebaseUserId)
