@@ -41,7 +41,7 @@ export const PostForm = () => {
 
    
         const postToSendToAPI = {
-    
+        
             title: newPost.title,
             content: newPost.content,
             categoryId: newPost.categoryId,
