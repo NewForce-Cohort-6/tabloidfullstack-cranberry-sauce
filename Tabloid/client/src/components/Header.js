@@ -16,8 +16,10 @@ export default function Header({isLoggedIn, setIsLoggedIn}) {
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <div>
+  
+      <>
       <Navbar color="light" light expand="md">
+            
         <NavbarBrand tag={RRNavLink} to="/">Tabloid</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
@@ -36,16 +38,15 @@ export default function Header({isLoggedIn, setIsLoggedIn}) {
 
                 <NavLink tag={RRNavLink} to="/post">Post Management</NavLink>
               </NavItem>
-
+              <NavItem>
               <NavLink tag={RRNavLink} to="/TagManagement">Tag Management</NavLink>
             </NavItem>
-
               </>
-              
             }
-            </Nav>
+          </Nav>         
          
-
+          
+          
           <Nav navbar>
             {isLoggedIn &&
               <>
@@ -74,8 +75,8 @@ export default function Header({isLoggedIn, setIsLoggedIn}) {
               </>
             }
           </Nav>
-        </Collapse>
+       </Collapse>
       </Navbar>
-    </div>
-  );
+    </>
+)
 }
