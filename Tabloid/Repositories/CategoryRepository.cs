@@ -9,6 +9,8 @@ namespace Tabloid.Repositories
     {
         public CategoryRepository(IConfiguration configuration) : base(configuration) { }
 
+
+        // Getting a list of all categories 
         public List<Category> GetAllCats()
         {
             using (var conn = Connection)
@@ -39,6 +41,23 @@ namespace Tabloid.Repositories
             }
         }
 
+        // Adding to our list of categories
+        public void Add(Category cat)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        INSERT INTO Category(Name)
+                        OUTPUT INSERTED.ID
+                        VALUES (@Name)";
 
+                    DbUtils.AddParameter(cmd, "@Name", cat.Name);
+                    cat.Id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
     }
 }
