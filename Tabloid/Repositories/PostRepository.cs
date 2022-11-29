@@ -193,13 +193,13 @@ namespace Tabloid.Repositories
                                 IsApproved, CategoryId, UserProfileId )
                             OUTPUT INSERTED.ID
                             VALUES (
-                                @Title, @Content, @ImageLocation, @CreateDateTime, @PublishDateTime,
+                                @Title, @Content, @ImageLocation, @CreateDateTime, null,
                                 @IsApproved, @CategoryId, @UserProfileId )";
                     cmd.Parameters.AddWithValue("@Title", post.Title);
                     cmd.Parameters.AddWithValue("@Content", post.Content);
                     cmd.Parameters.AddWithValue("@ImageLocation", post.ImageLocation);
                     cmd.Parameters.AddWithValue("@CreateDateTime", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@PublishDateTime", post.PublishDateTime);
+                    //cmd.Parameters.AddWithValue("@PublishDateTime", null);
                     cmd.Parameters.AddWithValue("@IsApproved", true);
                     cmd.Parameters.AddWithValue("@CategoryId", post.CategoryId);
                     cmd.Parameters.AddWithValue("@UserProfileId", post.UserProfileId);
@@ -234,7 +234,7 @@ namespace Tabloid.Repositories
                 Id = reader.GetInt32(reader.GetOrdinal("Id")),
                 Title = reader.GetString(reader.GetOrdinal("Title")),
                 Content = reader.GetString(reader.GetOrdinal("Content")),
-                //ImageLocation = DbUtils.GetNullableString(reader, "HeaderImage"),
+                ImageLocation = reader.GetString(reader.GetOrdinal("HeaderImage")),
                 CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
                 //PublishDateTime = DbUtils.GetNullableDateTime(reader, "PublishDateTime"),
                 CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId")),
@@ -253,7 +253,7 @@ namespace Tabloid.Repositories
                     DisplayName = reader.GetString(reader.GetOrdinal("DisplayName")),
                     Email = reader.GetString(reader.GetOrdinal("Email")),
                     CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
-                    //ImageLocation = DbUtils.GetNullableString(reader, "AvatarImage"),
+                    ImageLocation = DbUtils.GetString(reader, "AvatarImage"),
                     UserTypeId = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
                     UserType = new UserType()
                     {
