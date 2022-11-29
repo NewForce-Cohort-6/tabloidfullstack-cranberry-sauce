@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { getAllCats } from '../Managers/CategoryManager'
 import Category from './Category'
+import { Table } from 'reactstrap';
 
 
 const CategoryList = () => {
@@ -24,14 +25,14 @@ const CategoryList = () => {
       <div className="container">
         <div className="row justify-content-center">
             <div className="card-column">
-
+            <Table striped>
           {category.map((cat) => (
-              <tr>
-                <td >
+              
+                
                   <Category key={cat.id} cat={cat} />
-                </td>
-                  </tr>
+               
               ))}
+              </Table>
               </div>
         </div>
       </div>

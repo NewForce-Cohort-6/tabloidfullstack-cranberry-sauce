@@ -8,3 +8,4 @@ export const getAllCats = () => {
     return fetch (`${baseUrl}`)
     .then((response) => response.json())
 };
+

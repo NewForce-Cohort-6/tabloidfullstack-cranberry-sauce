@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Table, Button} from "reactstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import {getPostsByCategory} from "../Managers/PostManager";
 
 export const ListPostsByCategory=()=>{
     const [posts, setPosts] = useState([]);
+    const { categoryId } = useParams();
+
+    
+
+    useEffect(()=>{
+        getPostsByCategory(categoryId)
+        .then((p)=>setPosts(p))
+    },[])
     
     const navigate = useNavigate();
 
@@ -14,10 +23,10 @@ export const ListPostsByCategory=()=>{
             return (
             <tr> 
                <td>
-                {p.Title}
+                {p.title}
                 </td>
                <td>
-                <Button size="sm" onClick={() => {navigate(`/ViewPost/${p.id}`)}}>Go to GIF</Button>
+                <Button size="sm" onClick={() => {navigate(`/post/${p.id}`)}}>Go to GIF</Button>
                 </td>
             </tr> )
                  
