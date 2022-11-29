@@ -42,37 +42,37 @@ namespace Tabloid.Controllers
             return CreatedAtAction("Get", new { id = post.Id }, post);
         }
 
-        // GET: PostController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            int userId = GetCurrentUserProfileId();
-            var post = _postRepository.GetUserPostById(id, userId);
-            if (post == null)
-            {
-                return View("NotAuthorizedDetails");
-            }
-            else
-            {
-                return View(post);
-            }
-        }
+        //// GET: PostController/Delete/5
+        //public ActionResult Delete(int id)
+        //{
+        //    int userId = GetCurrentUserProfileId();
+        //    var post = _postRepository.GetUserPostById(id, userId);
+        //    if (post == null)
+        //    {
+        //        return View("NotAuthorizedDetails");
+        //    }
+        //    else
+        //    {
+        //        return View(post);
+        //    }
+        //}
 
-        // POST: PostController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, Post post)
-        {
-            try
-            {
-                _postRepository.DeletePost(id);
+        //// POST: PostController/Delete/5
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Delete(int id, Post post)
+        //{
+        //    try
+        //    {
+        //        _postRepository.DeletePost(id);
 
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                return View(post);
-            }
-        }
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return View(post);
+        //    }
+        //}
 
 
     }
