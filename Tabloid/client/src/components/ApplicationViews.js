@@ -15,7 +15,7 @@ export default function ApplicationViews() {
        <Route path="/post" element= {<PostList/>} />
         <Route path="/category" element={<CategoryList />} />
         <Route path="/category/add" element={<CategoryForm />} />
-
+        
         <Route path="/TagManagement" element={<TagList />} />
       </Routes>
    );
