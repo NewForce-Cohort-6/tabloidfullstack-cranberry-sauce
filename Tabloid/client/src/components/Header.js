@@ -27,15 +27,25 @@ export default function Header({isLoggedIn, setIsLoggedIn}) {
               <>
               <NavItem>
                 <NavLink tag={RRNavLink} to="/">Home</NavLink>
-              </NavItem>
+              </NavItem>              
 
                <NavItem>
                 <NavLink tag={RRNavLink} to="/category">Category Management</NavLink>
               </NavItem>
+              <NavItem>
+
+                <NavLink tag={RRNavLink} to="/post">Post Management</NavLink>
+              </NavItem>
+
+              <NavLink tag={RRNavLink} to="/TagManagement">Tag Management</NavLink>
+            </NavItem>
+
               </>
               
             }
-          </Nav>
+            </Nav>
+         
+
           <Nav navbar>
             {isLoggedIn &&
               <>
@@ -46,8 +56,13 @@ export default function Header({isLoggedIn, setIsLoggedIn}) {
                       setIsLoggedIn(false)
                     }}>Logout</a>
                 </NavItem>
+
+             
+                
               </>
             }
+
+  
             {!isLoggedIn &&
               <>
                 <NavItem>
