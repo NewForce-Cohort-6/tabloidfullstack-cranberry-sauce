@@ -1,0 +1,33 @@
+.CatFormArticle{
+    margin-left: 41.5vw;
+    margin-top: 2vw;
+}
+
+.CatFormInput{
+
+
+width:250px;
+margin: 3px;
+padding:4px;
+font-weight:600;
+border-style: ridge;
+border-radius:10px;
+font-family:inherit;
+font-size: inherit;
+box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+display:block;
+text-align: center;
+}
+
+.CatFormButton{
+
+    display:block;
+    width:249px;
+    border:none;
+    margin: 3px;
+    padding: 6px;
+    font-weight:600;
+    font-family:inherit;
+    font-size: inherit;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+}
