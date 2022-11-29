@@ -5,6 +5,6 @@ const baseUrl = 'api/category';
 
 // function to fetch and return our base url
 export const getAllCats = () => {
-    return fetch (`${baseUrl}`)
+    return fetch (`https://localhost:5001/api/Category`)
     .then((response) => response.json())
 };

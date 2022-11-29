@@ -1,27 +1,39 @@
 import { useState } from "react"
+import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import React from "react"
+import { getAllCats } from "../../Managers/CategoryManager"
+import { TabContent } from "reactstrap"
 
 export const PostForm = () => {
     /*
          Add the correct default properties to the
         initial state object
     */
+
+        const [categories, setCategories] = useState([])
+
+        useEffect(() => {
+            getAllCats().then(setCategories);
+        }, []);
+    
+
     const [newPost, update] = useState({
-        Title: "",
-        Content: "",
-        CategoryId: 0
+        title: "",
+        content: "",
+        categoryId: 0,
+        userProfileId: 0
     })
     /*
          Use the useNavigation() hook so you can redirect
         the user to the ticket list
     */
     const navigate = useNavigate()
-    const localTabloidUser = localStorage.getItem("tabloid_user")
+    const localTabloidUser = localStorage.getItem("userProfile")
     const tabloidUserObject = JSON.parse(localTabloidUser)
 
-    const handleSaveButtonClick = (post) => {
-        post.preventDefault()
+    const handleSaveButtonClick = (e) => {
+        e.preventDefault()
       
       
 
@@ -29,19 +41,21 @@ export const PostForm = () => {
 
    
         const postToSendToAPI = {
-            UserId: tabloidUserObject,
-            Title: newPost.Title,
-            Content: newPost.Content,
-            CategoryId: newPost.CategoryId
+    
+            title: newPost.title,
+            content: newPost.content,
+            categoryId: newPost.categoryId,
+            userProfileId: tabloidUserObject.id,
+            imageLocation: newPost.imageLocation
         }
 
 
 
         //  Perform the fetch() to POST the object to the API
 
-
+debugger
         // export const addPost = (singlePost) => {
-        return fetch (`https://localhost:5001/api/post/`, {
+        return fetch (`https://localhost:5001/api/post`, {
             method: "POST" ,
             headers: {
                 "Content-Type": "application/json"
@@ -65,11 +79,11 @@ export const PostForm = () => {
                         type="text"
                         className="form-control"
                         placeholder=""
-                        value={newPost.Title}
+                        value={newPost.title}
                         onChange={
                             (evt) => {
                                 const copy = {...newPost}
-                                copy.Title =evt.target.value
+                                copy.title =evt.target.value
                                 update(copy)
               
     
@@ -87,35 +101,52 @@ export const PostForm = () => {
                         type="text"
                         className="form-control"
                         placeholder=""
-                        value={newPost.Content}
+                        value={newPost.content}
                         onChange={
                             (evt) => {
                                 const copy = {...newPost}
-                                copy.Content =evt.target.value
+                                copy.content =evt.target.value
                                 update(copy)
                             }
                         } />
                 </div>
             </fieldset>
-            <fieldset> 
-                            <div
-                             className="form-group">
-                    <label htmlFor="name">Post Category</label>
-                    <input 
-                        required autoFocus
+
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="ImageLocation">Header Image URL:</label>
+                    <input
+                        autoFocus
                         type="text"
                         className="form-control"
-                        placeholder=""
-                        value={newPost.CategoryName}
-                        onChange={
-                            (evt) => {
-                                const copy = {...newPost}
-                                copy.CategoryId =evt.target.value
-                                update(copy)
-                            }
-                        } />
+                        placeholder="www.example.com"
+                        value={newPost.imageLocation}
+                        onChange={(changeEvent) => {
+                            const copy = {...newPost}
+                            copy.imageLocation = changeEvent.target.value
+                            update(copy)
+                        }} />
                 </div>
             </fieldset>
+
+
+
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="category">Category</label>
+                    <select required className="form-control" 
+                            value={newPost.categoryId} 
+                            onChange={(changeEvent) => {
+                                const copy = {...newPost}
+                                copy.categoryId = parseInt(changeEvent.target.value)
+                                update(copy)
+                            }}>
+                        <option value="0">Choose a category</option>
+                        {categories?.map(c => <option value={c.id}>{c.name}</option>)}
+                    </select>
+                </div>         
+            </fieldset>
+
             
             <button 
                 onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
