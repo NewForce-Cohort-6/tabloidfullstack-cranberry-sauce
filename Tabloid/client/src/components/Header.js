@@ -32,22 +32,19 @@ export default function Header({isLoggedIn, setIsLoggedIn}) {
               <NavLink tag={RRNavLink} to="/TagManagement">Tag Management</NavLink>
               </NavItem>
 
+              <NavItem>
+
+                <NavLink tag={RRNavLink} to="/post">Post Management</NavLink>
+              </NavItem>
+
                <NavItem>
                 <NavLink tag={RRNavLink} to="/category">Category Management</NavLink>
               </NavItem>
+              
               </>
               
-
             }
-          </Nav>
-          <Nav className="mr-auto" navbar>
-            { /* When isLoggedIn === true, we will render the Home link */ }
-            {isLoggedIn &&
-          <NavItem>
-              <NavLink tag={RRNavLink} to="/TagManagement">Tag Management</NavLink>
-            </NavItem>
-            }
-            </Nav>
+         </Nav>
 
           <Nav navbar>
             {isLoggedIn &&
@@ -59,8 +56,13 @@ export default function Header({isLoggedIn, setIsLoggedIn}) {
                       setIsLoggedIn(false)
                     }}>Logout</a>
                 </NavItem>
+
+             
+                
               </>
             }
+
+  
             {!isLoggedIn &&
               <>
                 <NavItem>
