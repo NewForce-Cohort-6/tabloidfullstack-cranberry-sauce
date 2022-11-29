@@ -25,9 +25,14 @@ namespace Tabloid.Controllers
 
         // GET api/<CategoryController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            var cat = _categoryRepository.GetCatById(id);
+            if(cat == null)
+            {
+                return NotFound();
+            }
+            return Ok(cat);
         }
 
         // POST api/<CategoryController>
@@ -44,8 +49,10 @@ namespace Tabloid.Controllers
 
         // DELETE api/<CategoryController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            _categoryRepository.Delete(id);
+            return NoContent();
         }
     }
 }
