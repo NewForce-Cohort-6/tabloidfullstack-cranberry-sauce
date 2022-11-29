@@ -44,8 +44,8 @@ export default function Header({isLoggedIn, setIsLoggedIn}) {
               </>
             }
           </Nav>         
-         </Collapse>
-          </Navbar>
+         
+          
           
           <Nav navbar>
             {isLoggedIn &&
@@ -75,8 +75,8 @@ export default function Header({isLoggedIn, setIsLoggedIn}) {
               </>
             }
           </Nav>
-       
-      
+       </Collapse>
+      </Navbar>
     </>
 )
 }
