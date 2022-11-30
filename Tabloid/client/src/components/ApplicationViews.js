@@ -4,14 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import { PostList } from "./Posts/PostList";
 import { PostForm } from "./Posts/PostForm";
 import Hello from "./Hello.js"
-
-
 import CategoryList from "./CategoryList";
-
-
-
-
-import Hello from "./Hello";
 import TagList from "./TagList";
 
 
