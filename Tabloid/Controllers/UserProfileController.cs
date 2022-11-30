@@ -23,6 +23,12 @@ namespace Tabloid.Controllers
             return Ok(_userRepository.getAllProfiles());
         }
 
+        [HttpGet("Id")]
+        public IActionResult GetById(int id)
+        {
+            return Ok(_userRepository.GetById(id));
+        } 
+
         [HttpGet("GetByEmail")]
         public IActionResult GetByEmail(string email)
         {
