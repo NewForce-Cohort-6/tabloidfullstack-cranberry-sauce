@@ -214,6 +214,41 @@ namespace Tabloid.Repositories
                 }
             };
         }
+
+        public List<Post> ListPostsByCategory(int categoryId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using(var cmd= conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT * FROM Post WHERE CategoryId = @categoryId";
+                    cmd.Parameters.AddWithValue("@categoryId", categoryId);
+                    var reader= cmd.ExecuteReader();
+
+                    List<Post> posts = new List<Post>();
+
+                    while (reader.Read())
+                    {
+                        posts.Add(new Post()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Title = reader.GetString(reader.GetOrdinal("Title")),
+                            Content = reader.GetString(reader.GetOrdinal("Content")),
+                            //ImageLocation = DbUtils.GetNullableString(reader, "HeaderImage"),
+                            CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
+                            PublishDateTime = DbUtils.GetNullableDateTime(reader, "PublishDateTime"),
+                            CategoryId = categoryId,
+
+                        });
+                        
+                    }
+                    reader.Close();
+                    return posts;
+                }
+            }
+        }
+
     }
 }
 
