@@ -1,5 +1,5 @@
 import React from "react";
-import { CardTitle } from "reactstrap";
+import { CardTitle, Row, Table } from "reactstrap";
 import Card from "reactstrap/lib/Card";
 import CardBody from "reactstrap/lib/CardBody";
 import CardSubtitle from "reactstrap/lib/CardSubtitle";
@@ -12,8 +12,8 @@ const UserProfile = ({profile}) => {
             <div style={{marginBottom: "2vw"}}>
       <Card>
         <CardBody>
-          <CardTitle>{profile.fullName}</CardTitle>
-          <CardSubtitle>{profile.displayName}</CardSubtitle>
+          <CardTitle><h4>{profile.displayName}</h4></CardTitle>
+          <CardSubtitle>{profile.fullName}</CardSubtitle>
           <CardText>{profile.userType.name}</CardText>
           <a href="/profiles">Details</a>
         </CardBody>
