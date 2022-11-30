@@ -12,10 +12,9 @@ const UserProfile = ({profile}) => {
             <div style={{marginBottom: "2vw"}}>
       <Card>
         <CardBody>
-          <CardTitle><h4>{profile.displayName}</h4></CardTitle>
+          <CardTitle><h4> <a href="/profiles" style={{color: "gray"}}>{profile.displayName}</a></h4></CardTitle>
           <CardSubtitle>{profile.fullName}</CardSubtitle>
           <CardText>{profile.userType.name}</CardText>
-          <a href="/profiles">Details</a>
         </CardBody>
       </Card>
     </div>
