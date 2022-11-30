@@ -23,7 +23,7 @@ namespace Tabloid.Repositories
                                ut.Name AS UserTypeName
                           FROM UserProfile up
                                LEFT JOIN UserType ut on up.UserTypeId = ut.Id
-                         WHERE Email = @email";
+                           ORDER BY up.DisplayName";
 
                     var reader = cmd.ExecuteReader();
                     var profile = new List<UserProfile>();
