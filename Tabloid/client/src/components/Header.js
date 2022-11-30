@@ -79,11 +79,6 @@ export default function Header({isLoggedIn, setIsLoggedIn}) {
           </Nav>
        </Collapse>
       </Navbar>
-<<<<<<< HEAD
-    </div>
-  );
-=======
     </>
 )
->>>>>>> main
 }

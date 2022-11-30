@@ -26,7 +26,7 @@ export const ListPostsByCategory=()=>{
                 {p.title}
                 </td>
                <td>
-                <Button size="sm" onClick={() => {navigate(`/post/${p.id}`)}}>Go to GIF</Button>
+                <Button size="sm" onClick={() => {navigate(`/post/${p.id}`)}}>Go to Post</Button>
                 </td>
             </tr> )
                  
