@@ -35,8 +35,18 @@ namespace Tabloid.Controllers
             return Ok(posts);
         }
 
+        [HttpGet("{categoryId}")]
+        public IActionResult Get(int categoryId)
+        {
+            var post = _postRepository.ListPostsByCategory(categoryId);
+            if (categoryId == 0 || post==null)
+            {
+                return NotFound();
+            }
+            return Ok(post);
+        }
 
-    }
+    }    
 }
 
 //public IActionResult MyPosts()
