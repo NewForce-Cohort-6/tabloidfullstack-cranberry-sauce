@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Tabloid.Models;
-
+using Tabloid.Utils;
 
 namespace Tabloid.Repositories
 {
@@ -112,8 +113,8 @@ namespace Tabloid.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"UPDATE Tag SET [Name] = @name WHERE Id = @tagId";
-                    cmd.Parameters.AddWithValue("@name", tag.Name);
-                    cmd.Parameters.AddWithValue("@tagId", tag.Id);
+                    DbUtils.AddParameter(cmd, "@name", tag.Name);                   
+                    DbUtils.AddParameter(cmd, "@tagId", tag.Id);
 
                     cmd.ExecuteNonQuery();
                 }

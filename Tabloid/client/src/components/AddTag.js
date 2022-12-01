@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { useNavigate } from "react-router-dom";
-import { addTag } from "../Managers/TagManager";
+import { addTag, getAllTags } from "../Managers/TagManager";
 
-export const AddTagForm = ()=>{
+export const AddTagForm = ({setTags})=>{
     const [newTag, setNewTag]=useState({Name: ""});
     const navigate = useNavigate();
 
-    const addATag = () => {
-        addTag(newTag).then((t)=>{setNewTag({Name: ""})})
+    const addATag = (e) => {
+        e.preventDefault()
+        addTag(newTag)
+        .then(getAllTags)
+        .then((newTags)=>setTags(newTags))
+        .then((t)=>{setNewTag({Name: ""})})
     }
 
 
@@ -23,7 +27,7 @@ return(
             setNewTag(copyOfState)}} />
         </FormGroup>
         <FormGroup>
-          <Button onClick={addATag}>Save Tag</Button>
+          <Button className="littleButton" onClick={addATag}>Save Tag</Button>
         </FormGroup>
         </fieldset>
     </Form>

@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
-import {getAllTags} from "../Managers/TagManager.js";
-import { AddTagForm } from "./AddTag.js";   
+import { Table } from 'reactstrap';
+import {getAllTags, deleteTag} from "../Managers/TagManager.js";
+import { AddTagForm} from "./AddTag";   
+import {Tag} from "./Tag";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const TagList = () =>{
-    const [tags, setTags]=useState([]);
+    const [tags, setTags]=useState([]);  
+    
+    const navigate = useNavigate();
 
     const gettingTags=()=>{
     getAllTags().then(tags => setTags(tags));
@@ -11,14 +16,22 @@ const TagList = () =>{
 
     useEffect(()=>{
         gettingTags();
-    },[tags])
+    },[])
     
+  
     return(
         <>
-        <AddTagForm />
-        <div className="container" >
-            {tags.map(t => <div className ="row"><div className = "column"> {t.name} </div></div>)}
-        </div>
+        <AddTagForm setTags={setTags}/>
+        <div className="container">
+        <Table striped>
+            {tags.map((t) => {
+            return (
+            <tr> 
+                <Tag tag={t} setTags={setTags}/>
+            </tr> )
+                 
+            })}
+        </Table></div>
         </>
     );
 
