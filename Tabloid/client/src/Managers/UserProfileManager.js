@@ -1,9 +1,15 @@
-
-
-
-
-
   const apiUrl = "https://localhost:5001";
+
+  export const getAllProfiles = () => {
+    return fetch (`${apiUrl}/api/userprofile`)
+    .then((response) => response.json())
+};
+
+export const getProfileById = (id) => {
+  return fetch(`${apiUrl}/api/UserProfile/Id?id=${id}`)
+    .then((res) => res.json())
+};
+
 
   export const login = (userObject) => {
     return fetch(`${apiUrl}/api/userprofile/getbyemail?email=${userObject.email}`)
