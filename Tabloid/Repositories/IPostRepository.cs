@@ -14,5 +14,6 @@ namespace Tabloid.Repositories
         Post GetPublishedPostById(int id);
         Post GetUserPostById(int id, int userProfileId);
         List<Post> ListPostsByCategory(int categoryId);
+        List<Post> ListPostsByTag(int tagId);
     }
 }

@@ -249,6 +249,60 @@ namespace Tabloid.Repositories
             }
         }
 
+
+        public List<Post> ListPostsByTag(int tagId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT 
+	                                        p.Id, 
+	                                        Title, 
+	                                        Content, 
+	                                        ImageLocation, 
+	                                        CreateDateTime, 
+	                                        PublishDateTime, 
+	                                        IsApproved, 
+	                                        CategoryId,
+	                                        UserProfileId, 
+	                                        pt.Id AS PostTagId, 
+	                                        pt.PostId, 
+	                                        pt.TagId, 
+	                                        t.Id AS TagTagId, 
+	                                        t.Name 
+                                        FROM Post p 
+                                        LEFT JOIN PostTag pt ON p.Id=pt.PostId
+                                        LEFT JOIN Tag t ON pt.TagId = t.Id
+                                        WHERE t.Id = @tagId";
+                    cmd.Parameters.AddWithValue("@tagId", tagId);
+                    var reader = cmd.ExecuteReader();
+
+                    List<Post> posts = new List<Post>();
+
+                    while (reader.Read())
+                    {
+                        posts.Add(new Post()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Title = reader.GetString(reader.GetOrdinal("Title")),
+                            Content = reader.GetString(reader.GetOrdinal("Content")),
+                            //ImageLocation = DbUtils.GetNullableString(reader, "HeaderImage"),
+                            CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
+                            PublishDateTime = DbUtils.GetNullableDateTime(reader, "PublishDateTime"),
+                            CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId")),
+
+                        });
+
+                    }
+                    reader.Close();
+                    return posts;
+                }
+            }
+        }
+
+
     }
 }
 

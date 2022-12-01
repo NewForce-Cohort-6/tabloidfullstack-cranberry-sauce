@@ -35,8 +35,8 @@ namespace Tabloid.Controllers
             return Ok(posts);
         }
 
-        [HttpGet("{categoryId}")]
-        public IActionResult Get(int categoryId)
+        [HttpGet("GetByCategory")]
+        public IActionResult GetByCategory(int categoryId)
         {
             var post = _postRepository.ListPostsByCategory(categoryId);
             if (categoryId == 0 || post==null)
@@ -44,6 +44,21 @@ namespace Tabloid.Controllers
                 return NotFound();
             }
             return Ok(post);
+        }
+
+        [HttpGet("GetByTag")]
+        public IActionResult GetByTag(int tagId)
+        {
+            var posts = _postRepository.ListPostsByTag(tagId);
+            if (tagId == 0) 
+            {
+                return NotFound("That isn't a tag");
+            }
+            if(posts == null)
+            {
+                return NotFound("No posts have that tag");
+            }
+            return Ok(posts);
         }
 
     }    
