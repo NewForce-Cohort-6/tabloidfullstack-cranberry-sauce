@@ -139,7 +139,7 @@ namespace Tabloid.Repositories
             }
         }
 
-        public Post GetUserPostById(int id, int userProfileId)
+        public Post GetPostById(int id)
         {
             using (var conn = Connection)
             {
@@ -160,10 +160,10 @@ namespace Tabloid.Repositories
                               LEFT JOIN Category c ON p.CategoryId = c.id
                               LEFT JOIN UserProfile u ON p.UserProfileId = u.id
                               LEFT JOIN UserType ut ON u.UserTypeId = ut.id
-                        WHERE p.id = @id AND p.UserProfileId = @userProfileId";
+                        WHERE p.id = @id ";
 
                     cmd.Parameters.AddWithValue("@id", id);
-                    cmd.Parameters.AddWithValue("@userProfileId", userProfileId);
+                    //cmd.Parameters.AddWithValue("@userProfileId", userProfileId);
                     var reader = cmd.ExecuteReader();
 
                     Post post = null;

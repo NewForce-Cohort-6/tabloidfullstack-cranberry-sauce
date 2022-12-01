@@ -16,6 +16,7 @@ namespace Tabloid.Repositories
         void DeletePost(int id);
         List<Post> GetUserPosts(int id);
         Post GetPublishedPostById(int id);
-        Post GetUserPostById(int id, int userProfileId);
+        Post GetPostById(int id);
+         
     }
 }
