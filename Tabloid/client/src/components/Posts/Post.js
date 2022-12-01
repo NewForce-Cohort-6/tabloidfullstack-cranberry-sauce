@@ -18,7 +18,7 @@ const Post = ({ post }) => {
                             </button>
 
                             <button onClick={()=>{
-                            fetch(`http://localhost:8088/posts/${post.id}`,{
+                            fetch(`http://localhost:8088/post/${post.id}`,{
                             method: "DELETE" 
                              })
                             .then(()=>{getPosts()})

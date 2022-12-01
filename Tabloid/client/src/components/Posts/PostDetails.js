@@ -1,39 +1,45 @@
 import React, { useEffect, useState } from "react";
 import { ListGroup, ListGroupItem } from "reactstrap";
-import { getPost } from "../modules/PostManager";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Post from "./Post";
-
+// add props
 const PostDetails = () => {
   const [post, setPost] = useState();
-  const { id } = useParams();
-
+  const { postId } = useParams();
+const navigate = useNavigate()
   useEffect(() => {
-    getPost(id).then(setPost);
+ fetch(`https://localhost:5001/api/post/${postId}`)
+ .then((res) => res.json())
+    .then(setPost)
   }, []);
+
+// const getPostById = () => {
+//     return fetch(`https://localhost:5001/api/post/${postId}`)
+//         .then((res) => res.json())};
 
   if (!post) {
     return null;
   }
 
   return (
-    <div className="container">
-      <div className="row justify-content-center">
-        <div className="col-sm-12 col-lg-6">
-          <Post post={post} />
-          <ListGroup>
-            {post.comments.map((c) => (
-              <ListGroupItem>{c.message}</ListGroupItem>
-            ))}
-          </ListGroup>
-        </div>
-      </div>
-    </div>
+    <div>
+        Title
+    <p>{post.title}</p>
+        Content
+    <p>{post.content} </p>
+    <p>{post.publishDateTime}</p>
+        Author
+    <p>{post.userProfile.firstName}{post.userProfile.lastName}</p>
+    
+            <p>
+              {/* {
+              post.userProfile.map(profile =>
+                <div key={[post].id} >{profile.firstName} {profile.lastName}</div> )
+              } */}
+            </p>
+            </div>
   );
-};
+            };
+
 
 export default PostDetails;
-
-
-
-// <a href="url goes here">Visit This Url</a>

@@ -53,7 +53,7 @@ export const PostForm = () => {
 
         //  Perform the fetch() to POST the object to the API
 
-debugger
+
         // export const addPost = (singlePost) => {
         return fetch (`https://localhost:5001/api/post`, {
             method: "POST" ,
