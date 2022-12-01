@@ -2,14 +2,14 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import React from "react"
 import { Link } from "react-router-dom"
-// import { PostForm } from "./PostForm"
+import { PostForm } from "./PostForm"
 
 
 export const PostList = () => {
     const [posts, setPosts] = useState([])
     const navigate = useNavigate()
     useEffect (() => {
-        fetch ("https://localhost:5001/api/post") // url of api
+        fetch ("https://localhost:5001/api/Post") // url of api
             .then((response) => response.json())
             .then((postArray) => {
                 setPosts(postArray);

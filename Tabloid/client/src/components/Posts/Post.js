@@ -11,7 +11,22 @@ const Post = ({ post }) => {
       <CardBody>
         <p>
           <Link to={`/posts/${post.id}`}>
-          <strong>{post.title}</strong>
+          <strong>{post.title} 
+          
+          <button onClick={()=>{navigate(`/post/${post.id}`)}}
+                            className="post_edit">Edit
+                            </button>
+
+                            <button onClick={()=>{
+                            fetch(`http://localhost:8088/posts/${post.id}`,{
+                            method: "DELETE" 
+                             })
+                            .then(()=>{getPosts()})
+                            }}
+                            className="post_delete">Delete
+                            </button>
+          
+          </strong>
           </Link>
         </p>
         <p>{post.caption}</p>
