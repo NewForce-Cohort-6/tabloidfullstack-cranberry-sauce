@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardImg, CardBody } from "reactstrap";
-import { Link } from "react-router-dom";
+import { Link,  } from "react-router-dom";
 
 
 const Post = ({ post }) => {
@@ -13,7 +13,7 @@ const Post = ({ post }) => {
           <Link to={`/posts/${post.id}`}>
           <strong>{post.title} 
           
-          <button onClick={()=>{navigate(`/post/${post.id}`)}}
+          {/* <button onClick={()=>{navigate(`/post/${post.id}`)}}
                             className="post_edit">Edit
                             </button>
 
@@ -24,7 +24,7 @@ const Post = ({ post }) => {
                             .then(()=>{getPosts()})
                             }}
                             className="post_delete">Delete
-                            </button>
+                            </button> */}
           
           </strong>
           </Link>
