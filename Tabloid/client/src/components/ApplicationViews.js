@@ -6,6 +6,7 @@ import { PostForm } from "./Posts/PostForm";
 import Hello from "./Hello.js"
 import CategoryList from "./CategoryList";
 import TagList from "./TagList";
+import ProfileList from "./UserProfiles/UserProfileList";
 
 
 export default function ApplicationViews() {
@@ -19,6 +20,7 @@ export default function ApplicationViews() {
         <Route path="/category/add" element={<CategoryForm />} />
         
         <Route path="/TagManagement" element={<TagList />} />
+        <Route path= "/profiles" element={<ProfileList />} />
       </Routes>
    );
  
