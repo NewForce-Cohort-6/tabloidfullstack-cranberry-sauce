@@ -47,7 +47,40 @@ namespace Tabloid.Repositories
 
                     while (reader.Read())
                     {
-                        posts.Add(NewPostFromReader(reader));
+                        posts.Add(new Post()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Title = reader.GetString(reader.GetOrdinal("Title")),
+                            Content = reader.GetString(reader.GetOrdinal("Content")),
+                            ImageLocation = reader.GetString(reader.GetOrdinal("HeaderImage")),
+                            CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
+                            //PublishDateTime = DbUtils.GetNullableDateTime(reader, "PublishDateTime"),
+                            CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId")),
+                            IsApproved = reader.GetBoolean(reader.GetOrdinal("IsApproved")),
+                            Category = new Category()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                Name = reader.GetString(reader.GetOrdinal("Title"))
+                            },
+                            UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileId")),
+                            UserProfile = new UserProfile()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                                DisplayName = reader.GetString(reader.GetOrdinal("DisplayName")),
+                                Email = reader.GetString(reader.GetOrdinal("Email")),
+                                CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
+                                ImageLocation = DbUtils.GetString(reader, "HeaderImage"),
+                                UserTypeId = reader.GetInt32(reader.GetOrdinal("UserProfileId")),
+                                UserType = new UserType()
+                                {
+                                    Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                    Name = reader.GetString(reader.GetOrdinal("DisplayName"))
+                                }
+                            }
+                        }
+                        ) ;
                     }
 
                     reader.Close();
@@ -65,23 +98,18 @@ namespace Tabloid.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                       SELECT p.Id, p.Title, p.Content, 
-                              p.ImageLocation AS HeaderImage,
-                              p.CreateDateTime, p.PublishDateTime, p.IsApproved,
-                              p.CategoryId, p.UserProfileId,
-                              c.[Name] AS CategoryName,
-                              u.FirstName, u.LastName, u.DisplayName, 
-                              u.Email, u.CreateDateTime, u.ImageLocation AS AvatarImage,
-                              u.UserTypeId,
-                              u.Id,
-                              ut.[Name] AS UserTypeName
-                         FROM Post p
-                              LEFT JOIN Category c ON p.CategoryId = c.id
-                              LEFT JOIN UserProfile u ON p.UserProfileId = u.Id
-                              LEFT JOIN UserType ut ON u.UserTypeId = ut.id
-                        WHERE u.Id = p.UserProfileId
-                       AND u.Id = @id";
-                    cmd.Parameters.AddWithValue("@id", id);
+                        SELECT p.Id AS PostId, p.Title, p.Content, p.CreateDateTime AS PostDateCreated, p.PublishDateTime,  
+                       p.ImageLocation AS PostImageUrl, p.CategoryId, p.UserProfileId, p.IsApproved,
+                       up.FirstName, up.LastName, up.DisplayName, up.Email, up.CreateDateTime AS UserProfileDateCreated, 
+                       up.ImageLocation AS UserProfileImageUrl,
+                        c.[Name] AS CategoryName
+                  FROM Post p 
+                       LEFT JOIN UserProfile up ON p.UserProfileId = up.id
+                       LEFT JOIN Category c ON p.CategoryId = c.id               
+                    WHERE p.PublishDateTime < SYSDATETIME()
+                        AND p.UserProfileId = @UserProfileId
+                        ORDER By p.CreateDateTime DESC";
+                    cmd.Parameters.AddWithValue("@UserProfileId" ,id);
                     var reader = cmd.ExecuteReader();
 
                     var posts = new List<Post>();
@@ -231,34 +259,34 @@ namespace Tabloid.Repositories
         {
             return new Post()
             {
-                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                Id = reader.GetInt32(reader.GetOrdinal("PostId")),
                 Title = reader.GetString(reader.GetOrdinal("Title")),
                 Content = reader.GetString(reader.GetOrdinal("Content")),
-                ImageLocation = reader.GetString(reader.GetOrdinal("HeaderImage")),
-                CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
+                //ImageLocation = reader.GetString(reader.GetOrdinal("HeaderImage")),
+                CreateDateTime = reader.GetDateTime(reader.GetOrdinal("PostDateCreated")),
                 //PublishDateTime = DbUtils.GetNullableDateTime(reader, "PublishDateTime"),
                 CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId")),
                 IsApproved = reader.GetBoolean(reader.GetOrdinal("IsApproved")),
                 Category = new Category()
                 {
-                    Id = reader.GetInt32(reader.GetOrdinal("CategoryId")),
-                    Name = reader.GetString(reader.GetOrdinal("CategoryName"))
+                    Id = reader.GetInt32(reader.GetOrdinal("PostId")),
+                    Name = reader.GetString(reader.GetOrdinal("Title"))
                 },
                 UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileId")),
                 UserProfile = new UserProfile()
                 {
-                    Id = reader.GetInt32(reader.GetOrdinal("UserProfileId")),
+                    Id = reader.GetInt32(reader.GetOrdinal("PostId")),
                     FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
                     LastName = reader.GetString(reader.GetOrdinal("LastName")),
                     DisplayName = reader.GetString(reader.GetOrdinal("DisplayName")),
                     Email = reader.GetString(reader.GetOrdinal("Email")),
-                    CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
-                    ImageLocation = DbUtils.GetString(reader, "AvatarImage"),
-                    UserTypeId = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
+                    CreateDateTime = reader.GetDateTime(reader.GetOrdinal("PostDateCreated")),
+                    //ImageLocation = DbUtils.GetString(reader, "HeaderImage"),
+                    UserTypeId = reader.GetInt32(reader.GetOrdinal("UserProfileId")),
                     UserType = new UserType()
                     {
-                        Id = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
-                        Name = reader.GetString(reader.GetOrdinal("UserTypeName"))
+                        Id = reader.GetInt32(reader.GetOrdinal("PostId")),
+                        Name = reader.GetString(reader.GetOrdinal("DisplayName"))
                     }
                 }
             };
@@ -267,7 +295,12 @@ namespace Tabloid.Repositories
 }
 
 
-
+//Given the user is in the Tabloid application
+//When they select the My Posts menu option
+//Then they should be directed to the "My Posts" list page
+//And the page should display ALL the Posts authored by the logged-in user
+//And each post in the list should display the title, author and category
+//And the list should be in order of creation date with the most recent on top
 
 
 

@@ -60,6 +60,12 @@ namespace Tabloid.Controllers
             return Ok(post);
         }
 
+        [HttpGet("User/{id}")]
+        public IActionResult GetUserPosts(int id)
+        {
+            return Ok(_postRepository.GetUserPosts(id));
+        }
+
         //// GET: PostController/Delete/5
         //public ActionResult Delete(int id)
         //{
