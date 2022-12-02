@@ -44,51 +44,13 @@ return fetch(`https://localhost:5001/api/UserProfile/${profile.id}`, {
   );
 
 }
-// second handler for the active status of a profile -- this one reactivates inactive profiles 
-const handleProfileInactiveStatus = () => {
-  
-  const updateProfileActiveStatus = {
-    id: profile.id,
-    firstName: profile.firstName,
-    lastName: profile.lastName,
-    displayName: profile.displayName,
-    email: profile.email,
-    createDateTime: profile.createDateTime,
-    imageLocation: profile.imageLocation,
-    isActive: true,
-    userTypeId: profile.userTypeId,
-    userType: {
-      id: profile.userType.id,
-      name: profile.userType.name
-    },
-    fullName: profile.fullName
-    
-  }
-  
-  
-  // fetch call to grab the selected profile and update its properties -- this one takes the full object and returns it with isActive set to true. 
-  return fetch(`https://localhost:5001/api/UserProfile/${profile.id}`, {
-  method: "PUT",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify(updateProfileActiveStatus),
-})
-  .then((response) => response.json())
-  .then((profiles) =>
-   get(profiles)
-  );
-
-}
-
-
 
   if (profile.isActive){
 
     return (
       <>
             <div style={{marginBottom: "2vw"}}>
-      <Card>
+      <Card style={{width: "19vw",  textAlign: "center"}}>
         <CardBody>
           <CardTitle><h4><Link to={`/profiles/details/${profile.id}`} style={{color: "gray"}}>{profile.displayName}</Link></h4></CardTitle>
           <CardSubtitle>{profile.fullName}</CardSubtitle>
@@ -104,18 +66,6 @@ const handleProfileInactiveStatus = () => {
   } else {
     return (
       <>
-            <div style={{marginBottom: "2vw"}}>
-      <Card>
-        <CardBody>
-          <CardTitle><h4><Link to={`/profiles/details/${profile.id}`} style={{color: "gray"}}>{profile.displayName}</Link></h4></CardTitle>
-          <CardSubtitle>{profile.fullName}</CardSubtitle>
-        <CardText>{profile.userType.name}</CardText>
-        </CardBody>
-        <Button onClick={(event) => {
-          handleProfileInactiveStatus()
-        }}>Activate</Button>
-      </Card>
-    </div>
         </>
     )
   }
