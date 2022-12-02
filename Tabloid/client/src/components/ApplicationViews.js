@@ -16,7 +16,9 @@ export default function ApplicationViews() {
           <Route path="/" element= {<Hello/>} />
        <Route path="/post" element= {<PostList/>} />
        <Route path="/post/create" element={<PostForm />} />
+
        <Route path ="/post/details/:postId" element={<PostDetails />} />
+
         <Route path="/category" element={<CategoryList />} />
         <Route path="/category/add" element={<CategoryForm />} />
         

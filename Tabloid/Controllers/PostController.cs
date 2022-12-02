@@ -43,6 +43,7 @@ namespace Tabloid.Controllers
             return CreatedAtAction("Get", new { id = post.Id }, post);
         }
 
+
         // DELETE api/<CategoryController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
@@ -59,6 +60,7 @@ namespace Tabloid.Controllers
             }
             return Ok(post);
         }
+
 
         //// GET: PostController/Delete/5
         //public ActionResult Delete(int id)
