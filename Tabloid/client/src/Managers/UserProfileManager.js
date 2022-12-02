@@ -1,15 +1,21 @@
-
-
-
-
-
   const apiUrl = "https://localhost:5001";
+
+  export const getAllProfiles = () => {
+    return fetch (`${apiUrl}/api/userprofile`)
+    .then((response) => response.json())
+};
+
+export const getProfileById = (id) => {
+  return fetch(`${apiUrl}/api/UserProfile/Id?id=${id}`)
+    .then((res) => res.json())
+};
+
 
   export const login = (userObject) => {
     return fetch(`${apiUrl}/api/userprofile/getbyemail?email=${userObject.email}`)
     .then((r) => r.json())
       .then((userProfile) => {
-        if(userProfile.id){
+        if((userProfile.id)&&(userProfile.isActive == true)){
           localStorage.setItem("userProfile", JSON.stringify(userProfile));
           return userProfile
         }
