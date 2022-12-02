@@ -6,8 +6,10 @@ import { Link } from "react-router-dom";
 const Post = ({ post }) => {
   return (
     <Card className="m-4">
-      <p className="text-left px-2">Posted by: {post.userProfile.name}</p>
-      <CardImg top src={post.imageUrl} alt={post.title} />
+      <p className="text-left px-2">Posted by: {post.userProfile.displayName}</p>
+      <p> {post.content} </p>
+      <p>{post.CategoryName}</p>
+      <CardImg top src={post.imageUrl} alt={post.Title} />
       <CardBody>
         <p>
           <Link to={`/posts/${post.id}`}>
@@ -31,10 +33,10 @@ const Post = ({ post }) => {
         </p>
         <p>{post.caption}</p>
         <p>
-          {
-          post.categories.map(category =>
-            <div key={category.id} >{category.message}</div> )
-          }
+          {/* {
+          post.categories.map(category => */}
+            {/* <div key={category.id} >{category.message}</div> ) */}
+          {/* } */}
         </p>
       </CardBody>
     </Card>
