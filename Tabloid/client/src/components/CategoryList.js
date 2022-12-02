@@ -2,12 +2,16 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { getAllCats, getCatById } from '../Managers/CategoryManager'
 import Category from './Category'
-import Button from 'reactstrap/lib/Button';
+import { Button, Table } from 'reactstrap'
 
 const CategoryList = () => {
- // initial state
+  // initial state of state?
   const [category, setCategory] = useState([])
-
+  
+const Reroute = () => {
+  let path = '/category/add'
+  navigate(path);
+}
   // setting state
   const getCategories = () => {
     getAllCats().then((allCats) => setCategory(allCats))
@@ -15,7 +19,7 @@ const CategoryList = () => {
   // assigned useNav to a const variable
   const navigate = useNavigate();
 
-  // calling state 
+  // calling state
   useEffect(() => {
     getCategories()
   }, [])
@@ -30,25 +34,28 @@ const CategoryList = () => {
     <>
       <div className="container">
         <div className="row justify-content-center">
-            <div className="card-column">
-
-          {category.map((cat) => (
-              <tr>
-                <td >
+          <div className="card-column">
+          <Button style={{ marginBottom: '1.3vw'}} className={'CatFormButton'} onClick={Reroute}>
+            New Category
+          </Button>
+          <br></br>
+            <Table>
+              <thead className="row justify-content-center">
+               <h5>
+                 Category Name
+                </h5>
+                </thead>
+                {category.map((cat) => (
                   <Category key={cat.id} cat={cat} />
-                 
-                    
-                </td>
-                <Button style={{appearance: 'none', WebkitAppearance: 'none', width: '250', border: 'solid 1px', margin: '3px', padding: '6px', fontWeight: '600' }} onClick={(event) => {
-                  handleEdit(cat.id)}}>Edit</Button>
-                  </tr>
-              ))}
-              </div>
+                  ))}
+            </Table>
+
+          </div>
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-
-export default CategoryList;
+//exporting CategoryList to be used elsewhere
+export default CategoryList
