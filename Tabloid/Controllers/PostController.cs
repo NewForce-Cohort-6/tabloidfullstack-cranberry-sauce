@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualBasic;
 using System;
@@ -35,6 +36,64 @@ namespace Tabloid.Controllers
             return Ok(posts);
         }
 
+        [HttpPost]
+        public IActionResult AddPost(Post post)
+        {
+            _postRepository.AddPost(post);
+            return CreatedAtAction("Get", new { id = post.Id }, post);
+        }
+
+
+        // DELETE api/<CategoryController>/5
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetPostById (int id )
+        {
+            var post = _postRepository.GetPostById(id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+            return Ok(post);
+        }
+
+
+        //// GET: PostController/Delete/5
+        //public ActionResult Delete(int id)
+        //{
+        //    int userId = GetCurrentUserProfileId();
+        //    var post = _postRepository.GetUserPostById(id, userId);
+        //    if (post == null)
+        //    {
+        //        return View("NotAuthorizedDetails");
+        //    }
+        //    else
+        //    {
+        //        return View(post);
+        //    }
+        //}
+
+        //// POST: PostController/Delete/5
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Delete(int id, Post post)
+        //{
+        //    try
+        //    {
+        //        _postRepository.DeletePost(id);
+
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return View(post);
+        //    }
+        //}
+
 
     }
 }
@@ -62,37 +121,7 @@ namespace Tabloid.Controllers
 //}
 
 
-//        // GET: PostController/Delete/5
-//        public ActionResult Delete(int id)
-//        {
-//            int userId = GetCurrentUserProfileId();
-//            var post = _postRepository.GetUserPostById(id, userId);
-//            if (post == null)
-//            {
-//                return View("NotAuthorizedDetails");
-//            }
-//            else
-//            {
-//                return View(post);
-//            }
-//        }
 
-//        // POST: PostController/Delete/5
-//        [HttpPost]
-//        [ValidateAntiForgeryToken]
-//        public ActionResult Delete(int id, Post post)
-//        {
-//            try
-//            {
-//                _postRepository.DeletePost(id);
-
-//                return RedirectToAction("Index");
-//            }
-//            catch (Exception ex)
-//            {
-//                return View(post);
-//            }
-//        }
 
 //        // GET: PostController1/Edit/5
 //        public ActionResult Edit(int id)

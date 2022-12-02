@@ -2,12 +2,14 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import CategoryForm from "./CategoryForm";
 import { PostList } from "./Posts/PostList";
+import { PostForm } from "./Posts/PostForm";
 import Hello from "./Hello.js"
 import CategoryList from "./CategoryList";
 import TagList from "./TagList";
 import ProfileList from "./UserProfiles/UserProfileList";
 import ProfileDetails from "./UserProfiles/UserProfileDetails";
 import DeactivatedProfileList from "./UserProfiles/UserProfileListDeactivated";
+import PostDetails from "./Posts/PostDetails";
 
 
 export default function ApplicationViews() {
@@ -16,6 +18,10 @@ export default function ApplicationViews() {
       <Routes>
           <Route path="/" element= {<Hello/>} />
        <Route path="/post" element= {<PostList/>} />
+       <Route path="/post/create" element={<PostForm />} />
+
+       <Route path ="/post/details/:postId" element={<PostDetails />} />
+
         <Route path="/category" element={<CategoryList />} />
         <Route path="/category/add" element={<CategoryForm />} />
         

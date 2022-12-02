@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardImg, CardBody } from "reactstrap";
-import { Link } from "react-router-dom";
+import { Link,  } from "react-router-dom";
 
 
 const Post = ({ post }) => {
@@ -11,7 +11,34 @@ const Post = ({ post }) => {
       <CardBody>
         <p>
           <Link to={`/posts/${post.id}`}>
-          <strong>{post.title}</strong>
+          <strong>{post.title} 
+          
+
+          {/* <button onClick={()=>{navigate(`/post/${post.id}`)}}
+
+          <button onClick={()=>{navigate(`/post/${post.id}`)}}
+
+                            className="post_edit">Edit
+                            </button>
+
+                            <button onClick={()=>{
+
+                            fetch(`http://localhost:8088/post/${post.id}`,{
+
+                            fetch(`http://localhost:8088/posts/${post.id}`,{
+
+                            method: "DELETE" 
+                             })
+                            .then(()=>{getPosts()})
+                            }}
+                            className="post_delete">Delete
+
+                            </button> */}
+
+                        
+
+          
+          </strong>
           </Link>
         </p>
         <p>{post.caption}</p>

@@ -139,5 +139,15 @@ namespace Tabloid.Utils
                 cmd.Parameters.AddWithValue(name, value);
             }
         }
+
+        //internal static object ValueOrDBNull(string imageLocation)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //internal static object ValueOrDBNull(DateTime? publishDateTime)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }
