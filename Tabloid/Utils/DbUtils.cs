@@ -32,6 +32,23 @@ namespace Tabloid.Utils
         /// <param name="reader">A SqlDataReader that has not exhausted it's result set.</param>
         /// <param name="column">The name of the column from the result set refereed to by the reader.</param>
         /// <returns>The value of the given column.</returns>
+
+        public static bool GetBool(SqlDataReader reader, string column)
+        {
+            var ordinal = reader.GetOrdinal(column);
+            if (reader.IsDBNull(ordinal))
+            {
+                return false;
+            }
+            return reader.GetBoolean(ordinal);
+        }
+        /// <summary>
+        ///  Get a bool value (0, 1) from a data reader object.
+        /// </summary>
+        /// <param name="reader">A SqlDataReader that has not exhausted it's result set.</param>
+        /// <param name="column">The name of the column from the result set refereed to by the reader.</param>
+        /// <returns>The value of the given column.</returns>
+
         public static int GetInt(SqlDataReader reader, string column)
         {
             return reader.GetInt32(reader.GetOrdinal(column));

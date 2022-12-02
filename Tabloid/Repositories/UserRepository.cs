@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using Tabloid.Models;
 using Tabloid.Utils;
@@ -19,7 +20,7 @@ namespace Tabloid.Repositories
                 {
                     cmd.CommandText = @"
                         SELECT up.Id, up.FirstName, up.LastName, up.DisplayName, 
-                               up.Email, up.CreateDateTime, up.ImageLocation, up.UserTypeId,
+                               up.Email, up.CreateDateTime, up.ImageLocation, up.UserTypeId, up.IsActiveUser,
                                ut.Name AS UserTypeName
                           FROM UserProfile up
                                LEFT JOIN UserType ut on up.UserTypeId = ut.Id
@@ -39,6 +40,7 @@ namespace Tabloid.Repositories
                             CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
                             ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
                             UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
+                            IsActive = DbUtils.GetBool(reader, "IsActiveUser"),
                             UserType = new UserType()
                             {
                                 Id = DbUtils.GetInt(reader, "UserTypeId"),
@@ -61,7 +63,7 @@ namespace Tabloid.Repositories
                 {
                     cmd.CommandText = @"
                         SELECT up.Id, up.FirstName, up.LastName, up.DisplayName, 
-                               up.Email, up.CreateDateTime, up.ImageLocation, up.UserTypeId,
+                               up.Email, up.CreateDateTime, up.ImageLocation, up.UserTypeId, up.IsActiveUser,
                                ut.Name AS UserTypeName
                           FROM UserProfile up
                                LEFT JOIN UserType ut on up.UserTypeId = ut.Id
@@ -83,6 +85,7 @@ namespace Tabloid.Repositories
                             Email = DbUtils.GetString(reader, "Email"),
                             CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
                             ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
+                            IsActive = DbUtils.GetBool(reader, "IsActiveUser"),
                             UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
                             UserType = new UserType()
                             {
@@ -98,6 +101,28 @@ namespace Tabloid.Repositories
             }
         }
 
+        public void UpdateUserActivity(UserProfile user)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                            UPDATE UserProfile
+                            SET 
+                                IsActiveUser = @isActiveUser
+                            WHERE Id = @id";
+
+                    cmd.Parameters.AddWithValue("@isActiveUser", user.IsActive);
+                    cmd.Parameters.AddWithValue("@id", user.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         public UserProfile GetByEmail(string email)
         {
             using (var conn = Connection)
@@ -107,7 +132,7 @@ namespace Tabloid.Repositories
                 {
                     cmd.CommandText = @"
                         SELECT up.Id, up.FirstName, up.LastName, up.DisplayName, 
-                               up.Email, up.CreateDateTime, up.ImageLocation, up.UserTypeId,
+                               up.Email, up.CreateDateTime, up.ImageLocation, up.UserTypeId,  up.IsActiveUser,
                                ut.Name AS UserTypeName
                           FROM UserProfile up
                                LEFT JOIN UserType ut on up.UserTypeId = ut.Id
@@ -130,6 +155,7 @@ namespace Tabloid.Repositories
                             Email = DbUtils.GetString(reader, "Email"),
                             CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
                             ImageLocation = DbUtils.GetString(reader, "ImageLocation"),
+                            IsActive = DbUtils.GetBool(reader, "IsActiveUser"),
                             UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
                             UserType = new UserType()
                             {

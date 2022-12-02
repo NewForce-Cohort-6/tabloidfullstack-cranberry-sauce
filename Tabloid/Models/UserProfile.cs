@@ -22,6 +22,9 @@ namespace Tabloid.Models
         public string DisplayName { get; set; }
 
         [Required]
+        public bool IsActive { get; set; }
+
+        [Required]
         [DataType(DataType.EmailAddress)]
         [MaxLength(255)]
         public string Email { get; set; }

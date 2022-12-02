@@ -22,7 +22,7 @@ return (
           {profile.map((profile) => (
               <tr>
                 <td >
-                  <UserProfile key={profile.id} profile={profile} />
+                  <UserProfile key={profile.id} profile={profile} get={getProfiles} />
                 </td>
                   </tr>
               ))}
