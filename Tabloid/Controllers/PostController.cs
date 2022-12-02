@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualBasic;
 using System;
@@ -41,6 +42,25 @@ namespace Tabloid.Controllers
             _postRepository.AddPost(post);
             return CreatedAtAction("Get", new { id = post.Id }, post);
         }
+
+
+        // DELETE api/<CategoryController>/5
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetPostById (int id )
+        {
+            var post = _postRepository.GetPostById(id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+            return Ok(post);
+        }
+
 
         //// GET: PostController/Delete/5
         //public ActionResult Delete(int id)
