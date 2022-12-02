@@ -6,6 +6,7 @@ import { PostForm } from "./Posts/PostForm";
 import Hello from "./Hello.js"
 import CategoryList from "./CategoryList";
 import TagList from "./TagList";
+import CategoryEdit from "./CategoryEdit"
 import PostDetails from "./Posts/PostDetails";
 
 
@@ -23,6 +24,7 @@ export default function ApplicationViews() {
         <Route path="/category/add" element={<CategoryForm />} />
         
         <Route path="/TagManagement" element={<TagList />} />
+        <Route path="/category/edit/:id" element={<CategoryEdit />} />
       </Routes>
    );
  

@@ -40,6 +40,64 @@ namespace Tabloid.Repositories
                 }
             }
         }
+        public Category GetCatById(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT c.Id, c.Name, p.Id as PostId, p.CategoryId, p.Title 
+                        FROM Category c
+                        LEFT JOIN Post p
+                        ON c.Id = p.CategoryId
+                        WHERE c.Id = @id
+                        ORDER BY NAME";
+
+                    DbUtils.AddParameter(cmd, "@Id", id);
+                    var reader = cmd.ExecuteReader();
+
+                    Category cat = null;
+                    if (reader.Read())
+                    {
+                        cat = new Category()
+                        {
+                            Id = id,
+                            Name = DbUtils.GetString(reader, "Name")
+                        };
+                        reader.Close();
+                        return cat;
+                    }
+                    else
+                    {
+                        reader.Close();
+                        return null;
+                    }
+                }
+            }
+
+        }
+        public void UpdateCat(Category category) {
+ using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        UPDATE Category
+                           SET Name = @Name
+                            WHERE Id = @Id";
+                    DbUtils.AddParameter(cmd, "@Name", category.Name);
+                    DbUtils.AddParameter(cmd, "@Id", category.Id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+
+
 
         // Adding to our list of categories
         public void Add(Category cat)

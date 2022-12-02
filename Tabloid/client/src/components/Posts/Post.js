@@ -35,7 +35,7 @@ const Post = ({ post }) => {
 
                             </button> */}
 
-                            </button>
+                            
 
           
           </strong>
